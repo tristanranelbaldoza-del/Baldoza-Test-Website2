@@ -152,6 +152,81 @@
     .nav-link:hover::after { width: 100%; }
     .nav-link:focus-visible { outline: 2px solid #f48c06; outline-offset: 4px; border-radius: 2px; }
 
+    /* Dropdown submenu */
+    .nav-item { position: relative; }
+    .nav-item .nav-link { display: flex; align-items: center; gap: 4px; }
+    .nav-item .nav-link svg.chevron {
+      width: 12px; height: 12px;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .nav-item:hover .nav-link svg.chevron { transform: rotate(180deg); }
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px;
+      background: rgba(18,10,5,0.97);
+      border: 1px solid rgba(232,93,4,0.18);
+      border-radius: 12px;
+      padding: 8px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(232,93,4,0.08);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(-6px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+      z-index: 100;
+    }
+    .dropdown::before {
+      content: '';
+      position: absolute;
+      top: -6px; left: 50%;
+      transform: translateX(-50%);
+      width: 10px; height: 6px;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      background: rgba(232,93,4,0.3);
+    }
+    .nav-item:hover .dropdown,
+    .nav-item:focus-within .dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.7);
+      font-size: 13px;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .dropdown-item:hover {
+      background: rgba(232,93,4,0.12);
+      color: #f48c06;
+    }
+    .dropdown-item .icon {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      background: rgba(232,93,4,0.12);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .dropdown-item .icon svg { width: 14px; height: 14px; color: #f48c06; }
+    .dropdown-item .label { font-weight: 500; color: inherit; margin-bottom: 1px; }
+    .dropdown-item .desc { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.4; }
+    .dropdown-divider {
+      height: 1px;
+      background: rgba(232,93,4,0.1);
+      margin: 6px 8px;
+    }
+
     /* Lava divider line */
     .divider-lava {
       height: 1px;
@@ -279,9 +354,82 @@
 
       <!-- Nav links (desktop) -->
       <nav class="hidden md:flex items-center gap-8">
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#how-it-works" class="nav-link">How It Works</a>
-        <a href="#pricing" class="nav-link">Pricing</a>
+
+        <!-- Features dropdown -->
+        <div class="nav-item">
+          <a href="#features" class="nav-link">
+            Features
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <div class="dropdown">
+            <a href="#features" class="dropdown-item">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+              <span><div class="label">Test Cases</div><div class="desc">Build and manage structured test cases</div></span>
+            </a>
+            <a href="#features" class="dropdown-item">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M4.93 4.93a10 10 0 000 14.14"/></svg></span>
+              <span><div class="label">Automation</div><div class="desc">Run automated regression pipelines</div></span>
+            </a>
+            <a href="#features" class="dropdown-item">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+              <span><div class="label">Reporting</div><div class="desc">Real-time dashboards and analytics</div></span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#features" class="dropdown-item">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
+              <span><div class="label">Collaboration</div><div class="desc">Team workflows and role management</div></span>
+            </a>
+            <a href="#features" class="dropdown-item">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg></span>
+              <span><div class="label">CI/CD Integration</div><div class="desc">Connect with GitHub, GitLab, Jenkins</div></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- How It Works dropdown -->
+        <div class="nav-item">
+          <a href="#how-it-works" class="nav-link">
+            How It Works
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <div class="dropdown">
+            <a href="#how-it-works" class="dropdown-item">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+              <span><div class="label">Quick Start</div><div class="desc">Get set up in under 5 minutes</div></span>
+            </a>
+            <a href="#how-it-works" class="dropdown-item">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span>
+              <span><div class="label">Documentation</div><div class="desc">Guides, API references, and examples</div></span>
+            </a>
+            <a href="#how-it-works" class="dropdown-item">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></span>
+              <span><div class="label">Video Tutorials</div><div class="desc">Step-by-step walkthroughs</div></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Pricing dropdown -->
+        <div class="nav-item">
+          <a href="#pricing" class="nav-link">
+            Pricing
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <div class="dropdown" style="min-width:190px">
+            <a href="#pricing" class="dropdown-item">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><circle cx="12" cy="12" r="1"/></svg></span>
+              <span><div class="label">Free Plan</div><div class="desc">For individuals and small teams</div></span>
+            </a>
+            <a href="#pricing" class="dropdown-item">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+              <span><div class="label">Pro Plan</div><div class="desc">Advanced features for growing teams</div></span>
+            </a>
+            <a href="#pricing" class="dropdown-item">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></span>
+              <span><div class="label">Enterprise</div><div class="desc">Custom plans for large organizations</div></span>
+            </a>
+          </div>
+        </div>
+
         <a href="#" class="nav-link">Docs</a>
       </nav>
 
