@@ -171,10 +171,102 @@
       to { transform: translateX(-50%); }
     }
     .marquee-track { animation: marquee 22s linear infinite; }
+
+    /* ── Volcano canvas ── */
+    #volcano-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Push all page content above canvas */
+    header, main, section, footer, .glow-hero {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Pulsing hero glow */
+    @keyframes volcanoPulse {
+      0%, 100% { opacity: 0.85; }
+      50%       { opacity: 1; }
+    }
+    .glow-hero { animation: volcanoPulse 5s ease-in-out infinite; }
+
+    /* Lava pool at bottom of viewport */
+    .lava-pool {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 90px;
+      pointer-events: none;
+      z-index: 3;
+      overflow: hidden;
+    }
+    .lava-wave {
+      position: absolute;
+      bottom: -10px; left: -60%;
+      width: 220%;
+      height: 100%;
+      border-radius: 45% 45% 0 0 / 35% 35% 0 0;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(232,93,4,0.07) 35%,
+        rgba(193,68,14,0.22) 75%,
+        rgba(120,30,5,0.40) 100%
+      );
+      animation: lavaWave 7s ease-in-out infinite;
+    }
+    .lava-wave:nth-child(2) {
+      left: -40%;
+      animation-duration: 9s;
+      animation-delay: -3.5s;
+      opacity: 0.65;
+    }
+    .lava-wave:nth-child(3) {
+      left: -80%;
+      animation-duration: 11s;
+      animation-delay: -6s;
+      opacity: 0.45;
+    }
+    @keyframes lavaWave {
+      0%   { transform: translateX(0)    scaleY(1);    }
+      25%  { transform: translateX(6%)   scaleY(1.12); }
+      50%  { transform: translateX(12%)  scaleY(0.94); }
+      75%  { transform: translateX(6%)   scaleY(1.08); }
+      100% { transform: translateX(0)    scaleY(1);    }
+    }
+
+    /* Lava crack glow lines */
+    .lava-cracks {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background-image:
+        linear-gradient(135deg, transparent 45%, rgba(232,93,4,0.04) 50%, transparent 55%),
+        linear-gradient(225deg, transparent 45%, rgba(193,68,14,0.03) 50%, transparent 55%);
+      background-size: 400px 400px, 600px 600px;
+      animation: crackShift 20s linear infinite;
+    }
+    @keyframes crackShift {
+      0%   { background-position: 0 0, 0 0; }
+      100% { background-position: 400px 400px, -600px 600px; }
+    }
   </style>
 </head>
 
 <body class="bg-[#0d0804] text-white overflow-x-hidden">
+
+  <!-- Volcano animated background -->
+  <canvas id="volcano-canvas"></canvas>
+  <div class="lava-cracks"></div>
+
+  <!-- Lava pool at bottom -->
+  <div class="lava-pool">
+    <div class="lava-wave"></div>
+    <div class="lava-wave"></div>
+    <div class="lava-wave"></div>
+  </div>
 
   <!-- ─── NAVBAR ─────────────────────────────────────────────── -->
   <header class="fixed top-0 left-0 right-0 z-50" style="background: rgba(13,8,4,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(232,93,4,0.09);">
@@ -593,11 +685,157 @@
 
       <div class="divider-lava mb-8"></div>
       <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/25">
-        <p>&copy; 2026 BaldozaTester. All rights reserved.</p>
+        <p>&copy; 2026 Tester.io. All rights reserved.</p>
         <p>Built for teams who ship quality software.</p>
       </div>
     </div>
   </footer>
+
+  <script>
+    // ── Volcano Canvas Animation ──────────────────────────────
+    const canvas = document.getElementById('volcano-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const EMBER_COLORS = ['#c1440e','#e85d04','#f48c06','#faa307','#ffbe0b','#ff6000'];
+
+    // ── Ember particle ───────────────────────────────────────
+    class Ember {
+      constructor(initial) { this.reset(initial); }
+      reset(initial = false) {
+        // Spawn across bottom third; initially scatter across full height
+        this.x       = Math.random() * canvas.width;
+        this.y       = initial
+          ? Math.random() * canvas.height
+          : canvas.height + Math.random() * 20;
+        this.size    = Math.random() * 2.2 + 0.4;
+        this.vy      = Math.random() * 1.4 + 0.4;
+        this.vx      = (Math.random() - 0.5) * 0.7;
+        this.drift   = (Math.random() - 0.5) * 0.015;
+        this.maxLife = Math.random() * 280 + 120;
+        this.life    = initial ? Math.random() * this.maxLife : 0;
+        this.color   = EMBER_COLORS[Math.floor(Math.random() * EMBER_COLORS.length)];
+      }
+      get alpha() {
+        const p = this.life / this.maxLife;
+        if (p < 0.12) return (p / 0.12) * 0.85;
+        return (1 - p) * 0.85;
+      }
+      step() {
+        this.y  -= this.vy;
+        this.x  += this.vx;
+        this.vx += this.drift;
+        this.life++;
+        if (this.life >= this.maxLife || this.y < -8) this.reset();
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha  = this.alpha;
+        ctx.shadowBlur   = this.size * 5;
+        ctx.shadowColor  = this.color;
+        ctx.fillStyle    = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // ── Lava blob (large slow glowing mass near bottom) ──────
+    class LavaBlob {
+      constructor(initial) { this.reset(initial); }
+      reset(initial = false) {
+        this.x       = Math.random() * canvas.width;
+        this.y       = initial
+          ? canvas.height * 0.6 + Math.random() * canvas.height * 0.4
+          : canvas.height + 60;
+        this.r       = Math.random() * 90 + 30;
+        this.vy      = Math.random() * 0.25 + 0.08;
+        this.vx      = (Math.random() - 0.5) * 0.25;
+        this.maxLife = Math.random() * 500 + 250;
+        this.life    = initial ? Math.random() * this.maxLife : 0;
+        this.hue     = Math.random() * 28; // 0–28 → deep red to orange
+      }
+      get alpha() {
+        const p = this.life / this.maxLife;
+        if (p < 0.15) return (p / 0.15) * 0.07;
+        return (1 - p) * 0.07;
+      }
+      step() {
+        this.y  -= this.vy;
+        this.x  += this.vx;
+        this.life++;
+        if (this.life >= this.maxLife || this.y < canvas.height * 0.25) this.reset();
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
+        g.addColorStop(0, `hsl(${18 + this.hue}, 100%, 58%)`);
+        g.addColorStop(1, 'transparent');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // ── Lava spark (fast bright short-lived streak) ──────────
+    class Spark {
+      constructor() { this.reset(); }
+      reset() {
+        this.x       = Math.random() * canvas.width;
+        this.y       = canvas.height * 0.6 + Math.random() * canvas.height * 0.4;
+        this.size    = Math.random() * 1.2 + 0.3;
+        this.vy      = Math.random() * 3 + 1.5;
+        this.vx      = (Math.random() - 0.5) * 2.5;
+        this.maxLife = Math.random() * 60 + 20;
+        this.life    = Math.random() * this.maxLife;
+        this.color   = Math.random() > 0.5 ? '#faa307' : '#ffbe0b';
+      }
+      get alpha() { return (1 - this.life / this.maxLife) * 0.9; }
+      step() {
+        this.y  -= this.vy;
+        this.x  += this.vx;
+        this.vy *= 0.97;
+        this.life++;
+        if (this.life >= this.maxLife) this.reset();
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.shadowBlur  = 6;
+        ctx.shadowColor = this.color;
+        ctx.fillStyle   = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // Initialise particles
+    const embers = Array.from({ length: 130 }, () => new Ember(true));
+    const blobs  = Array.from({ length: 18  }, () => new LavaBlob(true));
+    const sparks = Array.from({ length: 40  }, () => new Spark());
+
+    // Animation loop
+    function loop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      blobs.forEach(b  => { b.step();  b.draw();  });
+      embers.forEach(e => { e.step();  e.draw();  });
+      sparks.forEach(s => { s.step();  s.draw();  });
+      requestAnimationFrame(loop);
+    }
+    loop();
+  </script>
 
 </body>
 </html>
