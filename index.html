@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tester.io — Quality Assurance, Reimagined</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Montserrat', 'sans-serif'] },
+          colors: {
+            gold: { DEFAULT: '#C6A559', light: '#E68979', dark: '#9C7A30' },
+            brand: {
+              bg: '#0a0804',
+              surface: '#120e06',
+              elevated: '#1c1608',
+              border: '#2a2010',
+            }
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Montserrat', sans-serif; }
+
+    /* Grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* Gold gradient text */
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #E8C97A 0%, #C6A559 40%, #E68979 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Gold gradient background */
+    .bg-gold-gradient {
+      background: linear-gradient(135deg, #C6A559 0%, #E68979 100%);
+    }
+
+    /* Tinted layered shadow */
+    .shadow-gold {
+      box-shadow:
+        0 2px 4px rgba(198, 165, 89, 0.08),
+        0 8px 24px rgba(198, 165, 89, 0.12),
+        0 24px 64px rgba(198, 165, 89, 0.06);
+    }
+
+    .shadow-dark {
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.4),
+        0 4px 16px rgba(0,0,0,0.5),
+        0 16px 48px rgba(0,0,0,0.3);
+    }
+
+    /* Radial glow */
+    .glow-hero {
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(198,165,89,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 30% at 80% 20%, rgba(230,137,121,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(198,165,89,0.07) 0%, transparent 60%);
+    }
+
+    /* Animations — only transform & opacity */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .fade-up-1 { animation-delay: 0.1s; }
+    .fade-up-2 { animation-delay: 0.22s; }
+    .fade-up-3 { animation-delay: 0.34s; }
+    .fade-up-4 { animation-delay: 0.46s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hover states */
+    .btn-primary {
+      background: linear-gradient(135deg, #C6A559 0%, #E68979 100%);
+      color: #0a0804;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 14px 32px;
+      border-radius: 8px;
+      display: inline-block;
+      transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), opacity 0.2s ease;
+      box-shadow: 0 4px 20px rgba(198,165,89,0.35), 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px) scale(1.02); opacity: 0.92; }
+    .btn-primary:active { transform: translateY(0) scale(0.99); }
+    .btn-primary:focus-visible { outline: 2px solid #C6A559; outline-offset: 3px; }
+
+    .btn-outline {
+      border: 1.5px solid rgba(198,165,89,0.5);
+      color: #C6A559;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 13px 32px;
+      border-radius: 8px;
+      display: inline-block;
+      transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), border-color 0.2s ease, background 0.2s ease;
+    }
+    .btn-outline:hover { transform: translateY(-2px) scale(1.02); border-color: #C6A559; background: rgba(198,165,89,0.06); }
+    .btn-outline:active { transform: translateY(0) scale(0.99); }
+    .btn-outline:focus-visible { outline: 2px solid #C6A559; outline-offset: 3px; }
+
+    /* Card hover */
+    .feature-card {
+      transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        0 2px 4px rgba(198,165,89,0.08),
+        0 12px 32px rgba(198,165,89,0.14),
+        0 32px 80px rgba(0,0,0,0.4);
+    }
+
+    /* Nav link hover */
+    .nav-link {
+      position: relative;
+      color: rgba(255,255,255,0.65);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.01em;
+      transition: color 0.2s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1.5px;
+      background: linear-gradient(90deg, #C6A559, #E68979);
+      transition: width 0.25s cubic-bezier(0.16,1,0.3,1);
+    }
+    .nav-link:hover { color: #C6A559; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:focus-visible { outline: 2px solid #C6A559; outline-offset: 4px; border-radius: 2px; }
+
+    /* Gold divider line */
+    .divider-gold {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(198,165,89,0.3), transparent);
+    }
+
+    /* Stat card */
+    .stat-card {
+      background: linear-gradient(135deg, rgba(28,22,8,0.9) 0%, rgba(18,14,6,0.95) 100%);
+      border: 1px solid rgba(198,165,89,0.12);
+      border-radius: 16px;
+    }
+
+    /* Marquee logos */
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .marquee-track { animation: marquee 22s linear infinite; }
+  </style>
+</head>
+
+<body class="bg-[#0a0804] text-white overflow-x-hidden">
+
+  <!-- ─── NAVBAR ─────────────────────────────────────────────── -->
+  <header class="fixed top-0 left-0 right-0 z-50" style="background: rgba(10,8,4,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(198,165,89,0.08);">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C6A559] rounded" aria-label="Tester.io home">
+        <img src="logo.png" alt="Tester.io logo" class="h-8 w-auto" />
+        <span class="text-white font-bold text-[17px] tracking-[-0.01em]">Tester<span class="text-gold-gradient">.io</span></span>
+      </a>
+
+      <!-- Nav links (desktop) -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#" class="nav-link">Docs</a>
+      </nav>
+
+      <!-- CTA -->
+      <div class="hidden md:flex items-center gap-4">
+        <a href="#" class="nav-link">Sign In</a>
+        <a href="#" class="btn-primary text-sm">Get Started</a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button class="md:hidden p-2 rounded-lg text-white/70 hover:text-[#C6A559] focus-visible:outline-2 focus-visible:outline-[#C6A559]" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ─── HERO ───────────────────────────────────────────────── -->
+  <section class="relative min-h-screen flex items-center glow-hero pt-16">
+    <!-- Background grid -->
+    <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(rgba(198,165,89,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(198,165,89,0.04) 1px, transparent 1px); background-size: 64px 64px;"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10 py-28 text-center">
+      <!-- Badge -->
+      <div class="fade-up fade-up-1 inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full text-xs font-600 tracking-widest uppercase"
+           style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.25); color: #C6A559; letter-spacing: 0.12em;">
+        <span class="w-1.5 h-1.5 rounded-full bg-gold-gradient inline-block" style="background: #C6A559;"></span>
+        Now in Public Beta
+      </div>
+
+      <!-- Headline -->
+      <h1 class="fade-up fade-up-2 text-5xl md:text-7xl lg:text-8xl font-900 leading-[1.0] tracking-[-0.03em] mb-6">
+        Quality Assurance,<br/>
+        <span class="text-gold-gradient">Reimagined.</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="fade-up fade-up-3 max-w-2xl mx-auto text-white/55 text-lg md:text-xl font-400 leading-[1.7] mb-10">
+        Tester.io gives engineering teams a professional platform to plan, execute, and track QA — from manual checklists to full automation pipelines.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="fade-up fade-up-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#" class="btn-primary text-base">Get Started — It's Free</a>
+        <a href="#how-it-works" class="btn-outline text-base">See How It Works</a>
+      </div>
+
+      <!-- Social proof -->
+      <p class="fade-up fade-up-4 mt-8 text-white/30 text-sm font-500" style="animation-delay:0.55s;">
+        Trusted by <span class="text-[#C6A559]">2,400+</span> engineering teams worldwide
+      </p>
+    </div>
+
+    <!-- Bottom gradient fade -->
+    <div class="absolute bottom-0 left-0 right-0 h-40 pointer-events-none" style="background: linear-gradient(to bottom, transparent, #0a0804);"></div>
+  </section>
+
+  <!-- ─── LOGO MARQUEE ───────────────────────────────────────── -->
+  <div class="divider-gold"></div>
+  <div class="bg-[#0a0804] py-10 overflow-hidden">
+    <p class="text-center text-white/25 text-xs font-600 tracking-[0.2em] uppercase mb-7">Integrated with your stack</p>
+    <div class="relative overflow-hidden">
+      <div class="marquee-track flex items-center gap-16 w-max">
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">GitHub</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">GitLab</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Jira</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Jenkins</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">CircleCI</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Slack</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Linear</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Figma</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Notion</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Datadog</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">GitHub</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">GitLab</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Jira</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Jenkins</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">CircleCI</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Slack</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Linear</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Figma</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Notion</span>
+        <span class="text-white/20 font-700 text-sm tracking-widest uppercase">Datadog</span>
+      </div>
+    </div>
+  </div>
+  <div class="divider-gold"></div>
+
+  <!-- ─── STATS ──────────────────────────────────────────────── -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 py-24">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="stat-card p-8 text-center shadow-dark">
+        <div class="text-4xl md:text-5xl font-900 text-gold-gradient tracking-[-0.03em] mb-2">99.9%</div>
+        <div class="text-white/45 text-sm font-500 leading-snug">Platform Uptime</div>
+      </div>
+      <div class="stat-card p-8 text-center shadow-dark">
+        <div class="text-4xl md:text-5xl font-900 text-gold-gradient tracking-[-0.03em] mb-2">2.4K+</div>
+        <div class="text-white/45 text-sm font-500 leading-snug">Engineering Teams</div>
+      </div>
+      <div class="stat-card p-8 text-center shadow-dark">
+        <div class="text-4xl md:text-5xl font-900 text-gold-gradient tracking-[-0.03em] mb-2">18M+</div>
+        <div class="text-white/45 text-sm font-500 leading-snug">Tests Executed</div>
+      </div>
+      <div class="stat-card p-8 text-center shadow-dark">
+        <div class="text-4xl md:text-5xl font-900 text-gold-gradient tracking-[-0.03em] mb-2">4.9★</div>
+        <div class="text-white/45 text-sm font-500 leading-snug">Average Rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FEATURES ──────────────────────────────────────────── -->
+  <section id="features" class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+    <div class="text-center mb-16">
+      <p class="text-[#C6A559] text-xs font-700 tracking-[0.2em] uppercase mb-4">Platform Features</p>
+      <h2 class="text-4xl md:text-5xl font-800 tracking-[-0.03em] mb-5">Everything your QA team<br/>needs in one place</h2>
+      <p class="text-white/45 text-lg max-w-xl mx-auto leading-[1.7]">From test case management to automated pipelines — built for speed, built for scale.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <!-- Card 1 -->
+      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608 0%, #120e06 100%); border: 1px solid rgba(198,165,89,0.1);">
+        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.2);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#C6A559" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-700 tracking-[-0.02em] mb-3">Test Case Management</h3>
+        <p class="text-white/45 text-sm leading-[1.7]">Organize, write, and run manual test cases with rich markdown support, attachments, and step-level tracking.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608 0%, #120e06 100%); border: 1px solid rgba(198,165,89,0.1);">
+        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.2);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#C6A559" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-700 tracking-[-0.02em] mb-3">Automation Pipelines</h3>
+        <p class="text-white/45 text-sm leading-[1.7]">Connect your Selenium, Playwright, or Cypress suites. Trigger runs automatically on every push or PR.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608 0%, #120e06 100%); border: 1px solid rgba(198,165,89,0.1);">
+        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.2);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#C6A559" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-700 tracking-[-0.02em] mb-3">Real-Time Reporting</h3>
+        <p class="text-white/45 text-sm leading-[1.7]">Live dashboards, flakiness detection, and historical trend analysis. Know exactly what's passing and what's failing.</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608 0%, #120e06 100%); border: 1px solid rgba(198,165,89,0.1);">
+        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.2);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#C6A559" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-700 tracking-[-0.02em] mb-3">Team Collaboration</h3>
+        <p class="text-white/45 text-sm leading-[1.7]">Assign testers, add comments, review bugs together. QA + Dev working in the same workspace, finally.</p>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608 0%, #120e06 100%); border: 1px solid rgba(198,165,89,0.1);">
+        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.2);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#C6A559" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-700 tracking-[-0.02em] mb-3">CI/CD Integration</h3>
+        <p class="text-white/45 text-sm leading-[1.7]">First-class integrations with GitHub Actions, CircleCI, Jenkins, and more. Block merges on test failure.</p>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608 0%, #120e06 100%); border: 1px solid rgba(198,165,89,0.1);">
+        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.2);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#C6A559" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-700 tracking-[-0.02em] mb-3">Security & Compliance</h3>
+        <p class="text-white/45 text-sm leading-[1.7]">SOC2 Type II certified. SSO, audit logs, role-based access, and data residency options included.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── HOW IT WORKS ──────────────────────────────────────── -->
+  <section id="how-it-works" class="py-24" style="background: linear-gradient(180deg, #0a0804 0%, #0f0b05 50%, #0a0804 100%);">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="text-center mb-16">
+        <p class="text-[#C6A559] text-xs font-700 tracking-[0.2em] uppercase mb-4">How It Works</p>
+        <h2 class="text-4xl md:text-5xl font-800 tracking-[-0.03em]">Ship faster without<br/>breaking things</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-gold"
+               style="background: linear-gradient(135deg, #C6A559, #E68979);">
+            <span class="text-[#0a0804] text-2xl font-900">1</span>
+          </div>
+          <h3 class="text-xl font-700 tracking-[-0.02em] mb-3">Connect Your Repo</h3>
+          <p class="text-white/40 text-sm leading-[1.7]">Link GitHub, GitLab, or Bitbucket in under 60 seconds. No complex config required.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-gold"
+               style="background: linear-gradient(135deg, #C6A559, #E68979);">
+            <span class="text-[#0a0804] text-2xl font-900">2</span>
+          </div>
+          <h3 class="text-xl font-700 tracking-[-0.02em] mb-3">Define Your Tests</h3>
+          <p class="text-white/40 text-sm leading-[1.7]">Write manual test cases or import existing automation suites. Mix both in the same plan.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-gold"
+               style="background: linear-gradient(135deg, #C6A559, #E68979);">
+            <span class="text-[#0a0804] text-2xl font-900">3</span>
+          </div>
+          <h3 class="text-xl font-700 tracking-[-0.02em] mb-3">Ship with Confidence</h3>
+          <p class="text-white/40 text-sm leading-[1.7]">Automated gates on PRs, live reports, and instant team notifications when something breaks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTIMONIAL ───────────────────────────────────────── -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 py-24">
+    <div class="divider-gold mb-16"></div>
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <div class="p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608, #120e06); border: 1px solid rgba(198,165,89,0.09);">
+        <div class="flex gap-1 mb-5">
+          <span class="text-[#C6A559] text-sm">★★★★★</span>
+        </div>
+        <p class="text-white/60 text-sm leading-[1.8] mb-6">"Tester.io replaced three separate tools we were stitching together. Our QA cycle dropped from 2 weeks to 3 days."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center font-700 text-sm" style="background: rgba(198,165,89,0.15); color: #C6A559;">AK</div>
+          <div>
+            <div class="text-sm font-600 text-white">Aisha K.</div>
+            <div class="text-xs text-white/35">VP Engineering, Stripe</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-8 rounded-2xl shadow-gold" style="background: linear-gradient(145deg, #201808, #180f04); border: 1px solid rgba(198,165,89,0.2);">
+        <div class="flex gap-1 mb-5">
+          <span class="text-[#C6A559] text-sm">★★★★★</span>
+        </div>
+        <p class="text-white/70 text-sm leading-[1.8] mb-6">"The CI integration is flawless. Every PR now has a clear test status and we've cut production bugs by 60% since switching."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center font-700 text-sm" style="background: rgba(198,165,89,0.15); color: #C6A559;">MT</div>
+          <div>
+            <div class="text-sm font-600 text-white">Marcus T.</div>
+            <div class="text-xs text-white/35">CTO, Linear</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608, #120e06); border: 1px solid rgba(198,165,89,0.09);">
+        <div class="flex gap-1 mb-5">
+          <span class="text-[#C6A559] text-sm">★★★★★</span>
+        </div>
+        <p class="text-white/60 text-sm leading-[1.8] mb-6">"The reporting alone is worth it. We finally have visibility into which tests are flaky and how quality trends over time."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center font-700 text-sm" style="background: rgba(198,165,89,0.15); color: #C6A559;">SL</div>
+          <div>
+            <div class="text-sm font-600 text-white">Sofia L.</div>
+            <div class="text-xs text-white/35">QA Lead, Vercel</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── PRICING ───────────────────────────────────────────── -->
+  <section id="pricing" class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+    <div class="text-center mb-14">
+      <p class="text-[#C6A559] text-xs font-700 tracking-[0.2em] uppercase mb-4">Pricing</p>
+      <h2 class="text-4xl md:text-5xl font-800 tracking-[-0.03em] mb-4">Simple, transparent pricing</h2>
+      <p class="text-white/40 text-lg">No surprises. Cancel anytime.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+      <!-- Free -->
+      <div class="p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608, #120e06); border: 1px solid rgba(198,165,89,0.09);">
+        <h3 class="text-lg font-700 mb-1">Starter</h3>
+        <p class="text-white/35 text-sm mb-6">For small teams just getting started</p>
+        <div class="mb-8">
+          <span class="text-5xl font-900 tracking-[-0.03em]">$0</span>
+          <span class="text-white/35 text-sm">/month</span>
+        </div>
+        <ul class="space-y-3 mb-8 text-sm text-white/55">
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Up to 3 users</li>
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> 500 test cases</li>
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> 1 automation pipeline</li>
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Community support</li>
+        </ul>
+        <a href="#" class="btn-outline w-full text-center text-sm block">Get Started Free</a>
+      </div>
+
+      <!-- Pro (highlighted) -->
+      <div class="p-8 rounded-2xl shadow-gold relative" style="background: linear-gradient(145deg, #241a08, #1a1205); border: 1px solid rgba(198,165,89,0.3);">
+        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-700 tracking-widest uppercase"
+             style="background: linear-gradient(135deg, #C6A559, #E68979); color: #0a0804;">Most Popular</div>
+        <h3 class="text-lg font-700 mb-1">Pro</h3>
+        <p class="text-white/35 text-sm mb-6">For growing engineering teams</p>
+        <div class="mb-8">
+          <span class="text-5xl font-900 tracking-[-0.03em] text-gold-gradient">$49</span>
+          <span class="text-white/35 text-sm">/month</span>
+        </div>
+        <ul class="space-y-3 mb-8 text-sm text-white/65">
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Unlimited users</li>
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Unlimited test cases</li>
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> 10 automation pipelines</li>
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> CI/CD integrations</li>
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Priority support</li>
+        </ul>
+        <a href="#" class="btn-primary w-full text-center text-sm block">Get Started</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608, #120e06); border: 1px solid rgba(198,165,89,0.09);">
+        <h3 class="text-lg font-700 mb-1">Enterprise</h3>
+        <p class="text-white/35 text-sm mb-6">For large orgs with complex needs</p>
+        <div class="mb-8">
+          <span class="text-5xl font-900 tracking-[-0.03em]">Custom</span>
+        </div>
+        <ul class="space-y-3 mb-8 text-sm text-white/55">
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Everything in Pro</li>
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> SSO & SAML</li>
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Audit logs & compliance</li>
+          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Dedicated success manager</li>
+        </ul>
+        <a href="#" class="btn-outline w-full text-center text-sm block">Contact Sales</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── CTA BANNER ────────────────────────────────────────── -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+    <div class="relative rounded-3xl overflow-hidden p-12 md:p-20 text-center shadow-gold"
+         style="background: linear-gradient(135deg, #1e1508 0%, #2a1c08 50%, #1e1508 100%); border: 1px solid rgba(198,165,89,0.2);">
+      <!-- Glow blobs -->
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(198,165,89,0.1) 0%, transparent 70%);"></div>
+      <h2 class="relative text-4xl md:text-5xl font-900 tracking-[-0.03em] mb-5">
+        Ready to ship with<br/><span class="text-gold-gradient">confidence?</span>
+      </h2>
+      <p class="relative text-white/45 text-lg leading-[1.7] max-w-xl mx-auto mb-10">Join thousands of teams who use Tester.io to catch bugs before users do.</p>
+      <div class="relative flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#" class="btn-primary text-base">Start for Free</a>
+        <a href="#" class="btn-outline text-base">Book a Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────── -->
+  <footer class="border-t" style="border-color: rgba(198,165,89,0.08);">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+      <div class="grid md:grid-cols-5 gap-10 mb-12">
+        <!-- Brand -->
+        <div class="md:col-span-2">
+          <a href="#" class="flex items-center gap-2.5 mb-5">
+            <img src="logo.png" alt="Tester.io" class="h-7 w-auto" />
+            <span class="text-white font-bold text-base tracking-[-0.01em]">Tester<span class="text-gold-gradient">.io</span></span>
+          </a>
+          <p class="text-white/35 text-sm leading-[1.7] max-w-xs">Professional QA management for engineering teams who care about quality.</p>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <h4 class="text-white/70 text-xs font-700 tracking-[0.15em] uppercase mb-5">Product</h4>
+          <ul class="space-y-3 text-sm text-white/40">
+            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200 focus-visible:outline focus-visible:outline-[#C6A559]">Features</a></li>
+            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Pricing</a></li>
+            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Changelog</a></li>
+            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Roadmap</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white/70 text-xs font-700 tracking-[0.15em] uppercase mb-5">Company</h4>
+          <ul class="space-y-3 text-sm text-white/40">
+            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">About</a></li>
+            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Blog</a></li>
+            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Careers</a></li>
+            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white/70 text-xs font-700 tracking-[0.15em] uppercase mb-5">Legal</h4>
+          <ul class="space-y-3 text-sm text-white/40">
+            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Privacy</a></li>
+            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Terms</a></li>
+            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Security</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="divider-gold mb-8"></div>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/25">
+        <p>&copy; 2026 Tester.io. All rights reserved.</p>
+        <p>Built for teams who ship quality software.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
