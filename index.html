@@ -12,12 +12,12 @@
         extend: {
           fontFamily: { sans: ['Montserrat', 'sans-serif'] },
           colors: {
-            gold: { DEFAULT: '#C6A559', light: '#E68979', dark: '#9C7A30' },
+            lava: { DEFAULT: '#e85d04', light: '#f48c06', bright: '#faa307', dark: '#c1440e' },
             brand: {
-              bg: '#0a0804',
-              surface: '#120e06',
-              elevated: '#1c1608',
-              border: '#2a2010',
+              bg: '#0d0804',
+              surface: '#1a0a06',
+              elevated: '#2a0f08',
+              border: '#3d1510',
             }
           },
         }
@@ -32,46 +32,46 @@
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 9999;
-      opacity: 0.4;
+      opacity: 0.5;
     }
 
-    /* Gold gradient text */
-    .text-gold-gradient {
-      background: linear-gradient(135deg, #E8C97A 0%, #C6A559 40%, #E68979 100%);
+    /* Lava gradient text */
+    .text-lava-gradient {
+      background: linear-gradient(135deg, #faa307 0%, #e85d04 45%, #c1440e 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    /* Gold gradient background */
-    .bg-gold-gradient {
-      background: linear-gradient(135deg, #C6A559 0%, #E68979 100%);
+    /* Lava gradient background */
+    .bg-lava-gradient {
+      background: linear-gradient(135deg, #e85d04 0%, #f48c06 100%);
     }
 
     /* Tinted layered shadow */
-    .shadow-gold {
+    .shadow-lava {
       box-shadow:
-        0 2px 4px rgba(198, 165, 89, 0.08),
-        0 8px 24px rgba(198, 165, 89, 0.12),
-        0 24px 64px rgba(198, 165, 89, 0.06);
+        0 2px 4px rgba(232, 93, 4, 0.10),
+        0 8px 24px rgba(232, 93, 4, 0.18),
+        0 24px 64px rgba(193, 68, 14, 0.08);
     }
 
     .shadow-dark {
       box-shadow:
-        0 1px 2px rgba(0,0,0,0.4),
-        0 4px 16px rgba(0,0,0,0.5),
-        0 16px 48px rgba(0,0,0,0.3);
+        0 1px 2px rgba(0,0,0,0.5),
+        0 4px 16px rgba(0,0,0,0.55),
+        0 16px 48px rgba(0,0,0,0.4);
     }
 
-    /* Radial glow */
+    /* Radial glow — eruption effect */
     .glow-hero {
       background:
-        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(198,165,89,0.18) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 30% at 80% 20%, rgba(230,137,121,0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(198,165,89,0.07) 0%, transparent 60%);
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(232,93,4,0.22) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 30% at 80% 20%, rgba(250,163,7,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(193,68,14,0.10) 0%, transparent 60%);
     }
 
     /* Animations — only transform & opacity */
@@ -89,25 +89,25 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Hover states */
+    /* Buttons */
     .btn-primary {
-      background: linear-gradient(135deg, #C6A559 0%, #E68979 100%);
-      color: #0a0804;
+      background: linear-gradient(135deg, #c1440e 0%, #e85d04 50%, #f48c06 100%);
+      color: #0d0804;
       font-weight: 700;
       letter-spacing: 0.04em;
       padding: 14px 32px;
       border-radius: 8px;
       display: inline-block;
       transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), opacity 0.2s ease;
-      box-shadow: 0 4px 20px rgba(198,165,89,0.35), 0 1px 3px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 24px rgba(232,93,4,0.45), 0 1px 3px rgba(0,0,0,0.4);
     }
     .btn-primary:hover { transform: translateY(-2px) scale(1.02); opacity: 0.92; }
     .btn-primary:active { transform: translateY(0) scale(0.99); }
-    .btn-primary:focus-visible { outline: 2px solid #C6A559; outline-offset: 3px; }
+    .btn-primary:focus-visible { outline: 2px solid #f48c06; outline-offset: 3px; }
 
     .btn-outline {
-      border: 1.5px solid rgba(198,165,89,0.5);
-      color: #C6A559;
+      border: 1.5px solid rgba(232,93,4,0.5);
+      color: #f48c06;
       font-weight: 600;
       letter-spacing: 0.04em;
       padding: 13px 32px;
@@ -115,9 +115,9 @@
       display: inline-block;
       transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), border-color 0.2s ease, background 0.2s ease;
     }
-    .btn-outline:hover { transform: translateY(-2px) scale(1.02); border-color: #C6A559; background: rgba(198,165,89,0.06); }
+    .btn-outline:hover { transform: translateY(-2px) scale(1.02); border-color: #f48c06; background: rgba(232,93,4,0.07); }
     .btn-outline:active { transform: translateY(0) scale(0.99); }
-    .btn-outline:focus-visible { outline: 2px solid #C6A559; outline-offset: 3px; }
+    .btn-outline:focus-visible { outline: 2px solid #f48c06; outline-offset: 3px; }
 
     /* Card hover */
     .feature-card {
@@ -126,9 +126,9 @@
     .feature-card:hover {
       transform: translateY(-6px);
       box-shadow:
-        0 2px 4px rgba(198,165,89,0.08),
-        0 12px 32px rgba(198,165,89,0.14),
-        0 32px 80px rgba(0,0,0,0.4);
+        0 2px 4px rgba(232,93,4,0.10),
+        0 12px 32px rgba(232,93,4,0.18),
+        0 32px 80px rgba(0,0,0,0.5);
     }
 
     /* Nav link hover */
@@ -145,23 +145,23 @@
       position: absolute;
       bottom: -3px; left: 0;
       width: 0; height: 1.5px;
-      background: linear-gradient(90deg, #C6A559, #E68979);
+      background: linear-gradient(90deg, #c1440e, #faa307);
       transition: width 0.25s cubic-bezier(0.16,1,0.3,1);
     }
-    .nav-link:hover { color: #C6A559; }
+    .nav-link:hover { color: #f48c06; }
     .nav-link:hover::after { width: 100%; }
-    .nav-link:focus-visible { outline: 2px solid #C6A559; outline-offset: 4px; border-radius: 2px; }
+    .nav-link:focus-visible { outline: 2px solid #f48c06; outline-offset: 4px; border-radius: 2px; }
 
-    /* Gold divider line */
-    .divider-gold {
+    /* Lava divider line */
+    .divider-lava {
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(198,165,89,0.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(232,93,4,0.35), transparent);
     }
 
     /* Stat card */
     .stat-card {
-      background: linear-gradient(135deg, rgba(28,22,8,0.9) 0%, rgba(18,14,6,0.95) 100%);
-      border: 1px solid rgba(198,165,89,0.12);
+      background: linear-gradient(135deg, rgba(42,15,8,0.9) 0%, rgba(26,10,6,0.95) 100%);
+      border: 1px solid rgba(232,93,4,0.14);
       border-radius: 16px;
     }
 
@@ -174,15 +174,15 @@
   </style>
 </head>
 
-<body class="bg-[#0a0804] text-white overflow-x-hidden">
+<body class="bg-[#0d0804] text-white overflow-x-hidden">
 
   <!-- ─── NAVBAR ─────────────────────────────────────────────── -->
-  <header class="fixed top-0 left-0 right-0 z-50" style="background: rgba(10,8,4,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(198,165,89,0.08);">
+  <header class="fixed top-0 left-0 right-0 z-50" style="background: rgba(13,8,4,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(232,93,4,0.09);">
     <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="#" class="flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C6A559] rounded" aria-label="Tester.io home">
+      <a href="#" class="flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f48c06] rounded" aria-label="Tester.io home">
         <img src="logo.png" alt="Tester.io logo" class="h-8 w-auto" />
-        <span class="text-white font-bold text-[17px] tracking-[-0.01em]">Tester<span class="text-gold-gradient">.io</span></span>
+        <span class="text-white font-bold text-[17px] tracking-[-0.01em]">Tester<span class="text-lava-gradient">.io</span></span>
       </a>
 
       <!-- Nav links (desktop) -->
@@ -200,7 +200,7 @@
       </div>
 
       <!-- Mobile menu button -->
-      <button class="md:hidden p-2 rounded-lg text-white/70 hover:text-[#C6A559] focus-visible:outline-2 focus-visible:outline-[#C6A559]" aria-label="Open menu">
+      <button class="md:hidden p-2 rounded-lg text-white/70 hover:text-[#f48c06] focus-visible:outline-2 focus-visible:outline-[#f48c06]" aria-label="Open menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
@@ -211,20 +211,20 @@
   <!-- ─── HERO ───────────────────────────────────────────────── -->
   <section class="relative min-h-screen flex items-center glow-hero pt-16">
     <!-- Background grid -->
-    <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(rgba(198,165,89,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(198,165,89,0.04) 1px, transparent 1px); background-size: 64px 64px;"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(rgba(232,93,4,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(232,93,4,0.04) 1px, transparent 1px); background-size: 64px 64px;"></div>
 
     <div class="relative max-w-7xl mx-auto px-6 lg:px-10 py-28 text-center">
       <!-- Badge -->
       <div class="fade-up fade-up-1 inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full text-xs font-600 tracking-widest uppercase"
-           style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.25); color: #C6A559; letter-spacing: 0.12em;">
-        <span class="w-1.5 h-1.5 rounded-full bg-gold-gradient inline-block" style="background: #C6A559;"></span>
+           style="background: rgba(232,93,4,0.1); border: 1px solid rgba(232,93,4,0.28); color: #f48c06; letter-spacing: 0.12em;">
+        <span class="w-1.5 h-1.5 rounded-full inline-block" style="background: #f48c06;"></span>
         Now in Public Beta
       </div>
 
       <!-- Headline -->
       <h1 class="fade-up fade-up-2 text-5xl md:text-7xl lg:text-8xl font-900 leading-[1.0] tracking-[-0.03em] mb-6">
         Quality Assurance,<br/>
-        <span class="text-gold-gradient">Reimagined.</span>
+        <span class="text-lava-gradient">Reimagined.</span>
       </h1>
 
       <!-- Subheadline -->
@@ -240,17 +240,17 @@
 
       <!-- Social proof -->
       <p class="fade-up fade-up-4 mt-8 text-white/30 text-sm font-500" style="animation-delay:0.55s;">
-        Trusted by <span class="text-[#C6A559]">2,400+</span> engineering teams worldwide
+        Trusted by <span class="text-[#f48c06]">2,400+</span> engineering teams worldwide
       </p>
     </div>
 
     <!-- Bottom gradient fade -->
-    <div class="absolute bottom-0 left-0 right-0 h-40 pointer-events-none" style="background: linear-gradient(to bottom, transparent, #0a0804);"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-40 pointer-events-none" style="background: linear-gradient(to bottom, transparent, #0d0804);"></div>
   </section>
 
   <!-- ─── LOGO MARQUEE ───────────────────────────────────────── -->
-  <div class="divider-gold"></div>
-  <div class="bg-[#0a0804] py-10 overflow-hidden">
+  <div class="divider-lava"></div>
+  <div class="bg-[#0d0804] py-10 overflow-hidden">
     <p class="text-center text-white/25 text-xs font-600 tracking-[0.2em] uppercase mb-7">Integrated with your stack</p>
     <div class="relative overflow-hidden">
       <div class="marquee-track flex items-center gap-16 w-max">
@@ -277,25 +277,25 @@
       </div>
     </div>
   </div>
-  <div class="divider-gold"></div>
+  <div class="divider-lava"></div>
 
   <!-- ─── STATS ──────────────────────────────────────────────── -->
   <section class="max-w-7xl mx-auto px-6 lg:px-10 py-24">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div class="stat-card p-8 text-center shadow-dark">
-        <div class="text-4xl md:text-5xl font-900 text-gold-gradient tracking-[-0.03em] mb-2">99.9%</div>
+        <div class="text-4xl md:text-5xl font-900 text-lava-gradient tracking-[-0.03em] mb-2">99.9%</div>
         <div class="text-white/45 text-sm font-500 leading-snug">Platform Uptime</div>
       </div>
       <div class="stat-card p-8 text-center shadow-dark">
-        <div class="text-4xl md:text-5xl font-900 text-gold-gradient tracking-[-0.03em] mb-2">2.4K+</div>
+        <div class="text-4xl md:text-5xl font-900 text-lava-gradient tracking-[-0.03em] mb-2">2.4K+</div>
         <div class="text-white/45 text-sm font-500 leading-snug">Engineering Teams</div>
       </div>
       <div class="stat-card p-8 text-center shadow-dark">
-        <div class="text-4xl md:text-5xl font-900 text-gold-gradient tracking-[-0.03em] mb-2">18M+</div>
+        <div class="text-4xl md:text-5xl font-900 text-lava-gradient tracking-[-0.03em] mb-2">18M+</div>
         <div class="text-white/45 text-sm font-500 leading-snug">Tests Executed</div>
       </div>
       <div class="stat-card p-8 text-center shadow-dark">
-        <div class="text-4xl md:text-5xl font-900 text-gold-gradient tracking-[-0.03em] mb-2">4.9★</div>
+        <div class="text-4xl md:text-5xl font-900 text-lava-gradient tracking-[-0.03em] mb-2">4.9★</div>
         <div class="text-white/45 text-sm font-500 leading-snug">Average Rating</div>
       </div>
     </div>
@@ -304,7 +304,7 @@
   <!-- ─── FEATURES ──────────────────────────────────────────── -->
   <section id="features" class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
     <div class="text-center mb-16">
-      <p class="text-[#C6A559] text-xs font-700 tracking-[0.2em] uppercase mb-4">Platform Features</p>
+      <p class="text-[#f48c06] text-xs font-700 tracking-[0.2em] uppercase mb-4">Platform Features</p>
       <h2 class="text-4xl md:text-5xl font-800 tracking-[-0.03em] mb-5">Everything your QA team<br/>needs in one place</h2>
       <p class="text-white/45 text-lg max-w-xl mx-auto leading-[1.7]">From test case management to automated pipelines — built for speed, built for scale.</p>
     </div>
@@ -312,9 +312,9 @@
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 
       <!-- Card 1 -->
-      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608 0%, #120e06 100%); border: 1px solid rgba(198,165,89,0.1);">
-        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.2);">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#C6A559" stroke-width="2">
+      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #2a0f08 0%, #1a0a06 100%); border: 1px solid rgba(232,93,4,0.12);">
+        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(232,93,4,0.1); border: 1px solid rgba(232,93,4,0.22);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#f48c06" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
           </svg>
         </div>
@@ -323,9 +323,9 @@
       </div>
 
       <!-- Card 2 -->
-      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608 0%, #120e06 100%); border: 1px solid rgba(198,165,89,0.1);">
-        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.2);">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#C6A559" stroke-width="2">
+      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #2a0f08 0%, #1a0a06 100%); border: 1px solid rgba(232,93,4,0.12);">
+        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(232,93,4,0.1); border: 1px solid rgba(232,93,4,0.22);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#f48c06" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
           </svg>
         </div>
@@ -334,9 +334,9 @@
       </div>
 
       <!-- Card 3 -->
-      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608 0%, #120e06 100%); border: 1px solid rgba(198,165,89,0.1);">
-        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.2);">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#C6A559" stroke-width="2">
+      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #2a0f08 0%, #1a0a06 100%); border: 1px solid rgba(232,93,4,0.12);">
+        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(232,93,4,0.1); border: 1px solid rgba(232,93,4,0.22);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#f48c06" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
           </svg>
         </div>
@@ -345,9 +345,9 @@
       </div>
 
       <!-- Card 4 -->
-      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608 0%, #120e06 100%); border: 1px solid rgba(198,165,89,0.1);">
-        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.2);">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#C6A559" stroke-width="2">
+      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #2a0f08 0%, #1a0a06 100%); border: 1px solid rgba(232,93,4,0.12);">
+        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(232,93,4,0.1); border: 1px solid rgba(232,93,4,0.22);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#f48c06" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
           </svg>
         </div>
@@ -356,9 +356,9 @@
       </div>
 
       <!-- Card 5 -->
-      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608 0%, #120e06 100%); border: 1px solid rgba(198,165,89,0.1);">
-        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.2);">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#C6A559" stroke-width="2">
+      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #2a0f08 0%, #1a0a06 100%); border: 1px solid rgba(232,93,4,0.12);">
+        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(232,93,4,0.1); border: 1px solid rgba(232,93,4,0.22);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#f48c06" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
           </svg>
         </div>
@@ -367,9 +367,9 @@
       </div>
 
       <!-- Card 6 -->
-      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608 0%, #120e06 100%); border: 1px solid rgba(198,165,89,0.1);">
-        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(198,165,89,0.1); border: 1px solid rgba(198,165,89,0.2);">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#C6A559" stroke-width="2">
+      <div class="feature-card p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #2a0f08 0%, #1a0a06 100%); border: 1px solid rgba(232,93,4,0.12);">
+        <div class="w-12 h-12 rounded-xl mb-6 flex items-center justify-center" style="background: rgba(232,93,4,0.1); border: 1px solid rgba(232,93,4,0.22);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#f48c06" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
           </svg>
         </div>
@@ -381,34 +381,34 @@
   </section>
 
   <!-- ─── HOW IT WORKS ──────────────────────────────────────── -->
-  <section id="how-it-works" class="py-24" style="background: linear-gradient(180deg, #0a0804 0%, #0f0b05 50%, #0a0804 100%);">
+  <section id="how-it-works" class="py-24" style="background: linear-gradient(180deg, #0d0804 0%, #140a05 50%, #0d0804 100%);">
     <div class="max-w-7xl mx-auto px-6 lg:px-10">
       <div class="text-center mb-16">
-        <p class="text-[#C6A559] text-xs font-700 tracking-[0.2em] uppercase mb-4">How It Works</p>
+        <p class="text-[#f48c06] text-xs font-700 tracking-[0.2em] uppercase mb-4">How It Works</p>
         <h2 class="text-4xl md:text-5xl font-800 tracking-[-0.03em]">Ship faster without<br/>breaking things</h2>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
         <div class="text-center">
-          <div class="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-gold"
-               style="background: linear-gradient(135deg, #C6A559, #E68979);">
-            <span class="text-[#0a0804] text-2xl font-900">1</span>
+          <div class="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lava"
+               style="background: linear-gradient(135deg, #c1440e, #f48c06);">
+            <span class="text-[#0d0804] text-2xl font-900">1</span>
           </div>
           <h3 class="text-xl font-700 tracking-[-0.02em] mb-3">Connect Your Repo</h3>
           <p class="text-white/40 text-sm leading-[1.7]">Link GitHub, GitLab, or Bitbucket in under 60 seconds. No complex config required.</p>
         </div>
         <div class="text-center">
-          <div class="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-gold"
-               style="background: linear-gradient(135deg, #C6A559, #E68979);">
-            <span class="text-[#0a0804] text-2xl font-900">2</span>
+          <div class="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lava"
+               style="background: linear-gradient(135deg, #c1440e, #f48c06);">
+            <span class="text-[#0d0804] text-2xl font-900">2</span>
           </div>
           <h3 class="text-xl font-700 tracking-[-0.02em] mb-3">Define Your Tests</h3>
           <p class="text-white/40 text-sm leading-[1.7]">Write manual test cases or import existing automation suites. Mix both in the same plan.</p>
         </div>
         <div class="text-center">
-          <div class="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-gold"
-               style="background: linear-gradient(135deg, #C6A559, #E68979);">
-            <span class="text-[#0a0804] text-2xl font-900">3</span>
+          <div class="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lava"
+               style="background: linear-gradient(135deg, #c1440e, #f48c06);">
+            <span class="text-[#0d0804] text-2xl font-900">3</span>
           </div>
           <h3 class="text-xl font-700 tracking-[-0.02em] mb-3">Ship with Confidence</h3>
           <p class="text-white/40 text-sm leading-[1.7]">Automated gates on PRs, live reports, and instant team notifications when something breaks.</p>
@@ -419,16 +419,16 @@
 
   <!-- ─── TESTIMONIAL ───────────────────────────────────────── -->
   <section class="max-w-7xl mx-auto px-6 lg:px-10 py-24">
-    <div class="divider-gold mb-16"></div>
+    <div class="divider-lava mb-16"></div>
     <div class="grid md:grid-cols-3 gap-6">
 
-      <div class="p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608, #120e06); border: 1px solid rgba(198,165,89,0.09);">
+      <div class="p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #2a0f08, #1a0a06); border: 1px solid rgba(232,93,4,0.10);">
         <div class="flex gap-1 mb-5">
-          <span class="text-[#C6A559] text-sm">★★★★★</span>
+          <span class="text-[#f48c06] text-sm">★★★★★</span>
         </div>
         <p class="text-white/60 text-sm leading-[1.8] mb-6">"Tester.io replaced three separate tools we were stitching together. Our QA cycle dropped from 2 weeks to 3 days."</p>
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full flex items-center justify-center font-700 text-sm" style="background: rgba(198,165,89,0.15); color: #C6A559;">AK</div>
+          <div class="w-9 h-9 rounded-full flex items-center justify-center font-700 text-sm" style="background: rgba(232,93,4,0.15); color: #f48c06;">AK</div>
           <div>
             <div class="text-sm font-600 text-white">Aisha K.</div>
             <div class="text-xs text-white/35">VP Engineering, Stripe</div>
@@ -436,13 +436,13 @@
         </div>
       </div>
 
-      <div class="p-8 rounded-2xl shadow-gold" style="background: linear-gradient(145deg, #201808, #180f04); border: 1px solid rgba(198,165,89,0.2);">
+      <div class="p-8 rounded-2xl shadow-lava" style="background: linear-gradient(145deg, #3d1510, #2a0d07); border: 1px solid rgba(232,93,4,0.25);">
         <div class="flex gap-1 mb-5">
-          <span class="text-[#C6A559] text-sm">★★★★★</span>
+          <span class="text-[#faa307] text-sm">★★★★★</span>
         </div>
         <p class="text-white/70 text-sm leading-[1.8] mb-6">"The CI integration is flawless. Every PR now has a clear test status and we've cut production bugs by 60% since switching."</p>
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full flex items-center justify-center font-700 text-sm" style="background: rgba(198,165,89,0.15); color: #C6A559;">MT</div>
+          <div class="w-9 h-9 rounded-full flex items-center justify-center font-700 text-sm" style="background: rgba(232,93,4,0.18); color: #faa307;">MT</div>
           <div>
             <div class="text-sm font-600 text-white">Marcus T.</div>
             <div class="text-xs text-white/35">CTO, Linear</div>
@@ -450,13 +450,13 @@
         </div>
       </div>
 
-      <div class="p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608, #120e06); border: 1px solid rgba(198,165,89,0.09);">
+      <div class="p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #2a0f08, #1a0a06); border: 1px solid rgba(232,93,4,0.10);">
         <div class="flex gap-1 mb-5">
-          <span class="text-[#C6A559] text-sm">★★★★★</span>
+          <span class="text-[#f48c06] text-sm">★★★★★</span>
         </div>
         <p class="text-white/60 text-sm leading-[1.8] mb-6">"The reporting alone is worth it. We finally have visibility into which tests are flaky and how quality trends over time."</p>
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full flex items-center justify-center font-700 text-sm" style="background: rgba(198,165,89,0.15); color: #C6A559;">SL</div>
+          <div class="w-9 h-9 rounded-full flex items-center justify-center font-700 text-sm" style="background: rgba(232,93,4,0.15); color: #f48c06;">SL</div>
           <div>
             <div class="text-sm font-600 text-white">Sofia L.</div>
             <div class="text-xs text-white/35">QA Lead, Vercel</div>
@@ -470,7 +470,7 @@
   <!-- ─── PRICING ───────────────────────────────────────────── -->
   <section id="pricing" class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
     <div class="text-center mb-14">
-      <p class="text-[#C6A559] text-xs font-700 tracking-[0.2em] uppercase mb-4">Pricing</p>
+      <p class="text-[#f48c06] text-xs font-700 tracking-[0.2em] uppercase mb-4">Pricing</p>
       <h2 class="text-4xl md:text-5xl font-800 tracking-[-0.03em] mb-4">Simple, transparent pricing</h2>
       <p class="text-white/40 text-lg">No surprises. Cancel anytime.</p>
     </div>
@@ -478,7 +478,7 @@
     <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
       <!-- Free -->
-      <div class="p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608, #120e06); border: 1px solid rgba(198,165,89,0.09);">
+      <div class="p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #2a0f08, #1a0a06); border: 1px solid rgba(232,93,4,0.10);">
         <h3 class="text-lg font-700 mb-1">Starter</h3>
         <p class="text-white/35 text-sm mb-6">For small teams just getting started</p>
         <div class="mb-8">
@@ -486,46 +486,46 @@
           <span class="text-white/35 text-sm">/month</span>
         </div>
         <ul class="space-y-3 mb-8 text-sm text-white/55">
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Up to 3 users</li>
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> 500 test cases</li>
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> 1 automation pipeline</li>
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Community support</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> Up to 3 users</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> 500 test cases</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> 1 automation pipeline</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> Community support</li>
         </ul>
         <a href="#" class="btn-outline w-full text-center text-sm block">Get Started Free</a>
       </div>
 
       <!-- Pro (highlighted) -->
-      <div class="p-8 rounded-2xl shadow-gold relative" style="background: linear-gradient(145deg, #241a08, #1a1205); border: 1px solid rgba(198,165,89,0.3);">
+      <div class="p-8 rounded-2xl shadow-lava relative" style="background: linear-gradient(145deg, #3d1510, #2a0d07); border: 1px solid rgba(232,93,4,0.32);">
         <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-700 tracking-widest uppercase"
-             style="background: linear-gradient(135deg, #C6A559, #E68979); color: #0a0804;">Most Popular</div>
+             style="background: linear-gradient(135deg, #c1440e, #f48c06); color: #0d0804;">Most Popular</div>
         <h3 class="text-lg font-700 mb-1">Pro</h3>
         <p class="text-white/35 text-sm mb-6">For growing engineering teams</p>
         <div class="mb-8">
-          <span class="text-5xl font-900 tracking-[-0.03em] text-gold-gradient">$49</span>
+          <span class="text-5xl font-900 tracking-[-0.03em] text-lava-gradient">$49</span>
           <span class="text-white/35 text-sm">/month</span>
         </div>
         <ul class="space-y-3 mb-8 text-sm text-white/65">
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Unlimited users</li>
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Unlimited test cases</li>
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> 10 automation pipelines</li>
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> CI/CD integrations</li>
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Priority support</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> Unlimited users</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> Unlimited test cases</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> 10 automation pipelines</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> CI/CD integrations</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> Priority support</li>
         </ul>
         <a href="#" class="btn-primary w-full text-center text-sm block">Get Started</a>
       </div>
 
       <!-- Enterprise -->
-      <div class="p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #1c1608, #120e06); border: 1px solid rgba(198,165,89,0.09);">
+      <div class="p-8 rounded-2xl shadow-dark" style="background: linear-gradient(145deg, #2a0f08, #1a0a06); border: 1px solid rgba(232,93,4,0.10);">
         <h3 class="text-lg font-700 mb-1">Enterprise</h3>
         <p class="text-white/35 text-sm mb-6">For large orgs with complex needs</p>
         <div class="mb-8">
           <span class="text-5xl font-900 tracking-[-0.03em]">Custom</span>
         </div>
         <ul class="space-y-3 mb-8 text-sm text-white/55">
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Everything in Pro</li>
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> SSO & SAML</li>
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Audit logs & compliance</li>
-          <li class="flex gap-2"><span class="text-[#C6A559]">✓</span> Dedicated success manager</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> Everything in Pro</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> SSO & SAML</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> Audit logs & compliance</li>
+          <li class="flex gap-2"><span class="text-[#f48c06]">✓</span> Dedicated success manager</li>
         </ul>
         <a href="#" class="btn-outline w-full text-center text-sm block">Contact Sales</a>
       </div>
@@ -535,12 +535,11 @@
 
   <!-- ─── CTA BANNER ────────────────────────────────────────── -->
   <section class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
-    <div class="relative rounded-3xl overflow-hidden p-12 md:p-20 text-center shadow-gold"
-         style="background: linear-gradient(135deg, #1e1508 0%, #2a1c08 50%, #1e1508 100%); border: 1px solid rgba(198,165,89,0.2);">
-      <!-- Glow blobs -->
-      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(198,165,89,0.1) 0%, transparent 70%);"></div>
+    <div class="relative rounded-3xl overflow-hidden p-12 md:p-20 text-center shadow-lava"
+         style="background: linear-gradient(135deg, #1f0a05 0%, #2e1008 50%, #1f0a05 100%); border: 1px solid rgba(232,93,4,0.22);">
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(232,93,4,0.12) 0%, transparent 70%);"></div>
       <h2 class="relative text-4xl md:text-5xl font-900 tracking-[-0.03em] mb-5">
-        Ready to ship with<br/><span class="text-gold-gradient">confidence?</span>
+        Ready to ship with<br/><span class="text-lava-gradient">confidence?</span>
       </h2>
       <p class="relative text-white/45 text-lg leading-[1.7] max-w-xl mx-auto mb-10">Join thousands of teams who use Tester.io to catch bugs before users do.</p>
       <div class="relative flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -551,50 +550,48 @@
   </section>
 
   <!-- ─── FOOTER ────────────────────────────────────────────── -->
-  <footer class="border-t" style="border-color: rgba(198,165,89,0.08);">
+  <footer class="border-t" style="border-color: rgba(232,93,4,0.09);">
     <div class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
       <div class="grid md:grid-cols-5 gap-10 mb-12">
-        <!-- Brand -->
         <div class="md:col-span-2">
           <a href="#" class="flex items-center gap-2.5 mb-5">
             <img src="logo.png" alt="Tester.io" class="h-7 w-auto" />
-            <span class="text-white font-bold text-base tracking-[-0.01em]">Tester<span class="text-gold-gradient">.io</span></span>
+            <span class="text-white font-bold text-base tracking-[-0.01em]">Tester<span class="text-lava-gradient">.io</span></span>
           </a>
           <p class="text-white/35 text-sm leading-[1.7] max-w-xs">Professional QA management for engineering teams who care about quality.</p>
         </div>
 
-        <!-- Links -->
         <div>
           <h4 class="text-white/70 text-xs font-700 tracking-[0.15em] uppercase mb-5">Product</h4>
           <ul class="space-y-3 text-sm text-white/40">
-            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200 focus-visible:outline focus-visible:outline-[#C6A559]">Features</a></li>
-            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Pricing</a></li>
-            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Changelog</a></li>
-            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Roadmap</a></li>
+            <li><a href="#" class="hover:text-[#f48c06] transition-colors duration-200">Features</a></li>
+            <li><a href="#" class="hover:text-[#f48c06] transition-colors duration-200">Pricing</a></li>
+            <li><a href="#" class="hover:text-[#f48c06] transition-colors duration-200">Changelog</a></li>
+            <li><a href="#" class="hover:text-[#f48c06] transition-colors duration-200">Roadmap</a></li>
           </ul>
         </div>
 
         <div>
           <h4 class="text-white/70 text-xs font-700 tracking-[0.15em] uppercase mb-5">Company</h4>
           <ul class="space-y-3 text-sm text-white/40">
-            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">About</a></li>
-            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Blog</a></li>
-            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Careers</a></li>
-            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Contact</a></li>
+            <li><a href="#" class="hover:text-[#f48c06] transition-colors duration-200">About</a></li>
+            <li><a href="#" class="hover:text-[#f48c06] transition-colors duration-200">Blog</a></li>
+            <li><a href="#" class="hover:text-[#f48c06] transition-colors duration-200">Careers</a></li>
+            <li><a href="#" class="hover:text-[#f48c06] transition-colors duration-200">Contact</a></li>
           </ul>
         </div>
 
         <div>
           <h4 class="text-white/70 text-xs font-700 tracking-[0.15em] uppercase mb-5">Legal</h4>
           <ul class="space-y-3 text-sm text-white/40">
-            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Privacy</a></li>
-            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Terms</a></li>
-            <li><a href="#" class="hover:text-[#C6A559] transition-colors duration-200">Security</a></li>
+            <li><a href="#" class="hover:text-[#f48c06] transition-colors duration-200">Privacy</a></li>
+            <li><a href="#" class="hover:text-[#f48c06] transition-colors duration-200">Terms</a></li>
+            <li><a href="#" class="hover:text-[#f48c06] transition-colors duration-200">Security</a></li>
           </ul>
         </div>
       </div>
 
-      <div class="divider-gold mb-8"></div>
+      <div class="divider-lava mb-8"></div>
       <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/25">
         <p>&copy; 2026 Tester.io. All rights reserved.</p>
         <p>Built for teams who ship quality software.</p>
